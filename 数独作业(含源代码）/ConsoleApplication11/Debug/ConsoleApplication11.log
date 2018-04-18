@@ -1,0 +1,5 @@
+﻿  ConsoleApplication11.cpp
+c:\users\lenovo\source\repos\consoleapplication11\consoleapplication11\consoleapplication11.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\lenovo\source\repos\consoleapplication11\consoleapplication11\consoleapplication11.cpp(18): error C2440: “=”: 无法从“errno_t”转换为“FILE *”
+  c:\users\lenovo\source\repos\consoleapplication11\consoleapplication11\consoleapplication11.cpp(18): note: 从整型转换为指针类型要求 reinterpret_cast、C 样式转换或函数样式转换
+c:\users\lenovo\source\repos\consoleapplication11\consoleapplication11\consoleapplication11.cpp(26): warning C4244: “+=”: 从“double”转换到“int”，可能丢失数据
