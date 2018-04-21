@@ -19,17 +19,17 @@ int check(int a[10][10], int tei[9][10], int tej[9][10], int tek[9][10], int dgt
 	{
 		FILE *fp;
 		errno_t err;
-		if ((err = fopen_s(&fp, "shuduku.txt", "w")) == NULL) {    /* 打开文件 */
+		if ((err = fopen_s(&fp, "shuduku.txt", "w")) != 0) {    /* 打开文件 */
 			printf("File open error!\n");
 			exit(0);
 		}
 		for (int r = 0; r < 9; r++)
 		{
 			for (int c = 0; c < 9; c++)
-				fprintf(fp, "%d  ", a[r][c]);
-			fprintf(fp, "\n");
+				fprintf_s(fp, "%d  ", a[r][c]);
+			fprintf_s(fp, "\n");
 		}
-		fprintf(fp, "\n");
+		fprintf_s(fp, "\n");
 	}
 	int i, j;
 	i = dgt[dgtc][0];
@@ -68,7 +68,7 @@ void solute(int a[10][10])
 {
 	FILE *fp;
 	errno_t err;
-	if ((err = fopen_s(&fp, "shuduku.txt", "w")) == NULL) {    /* 打开文件 */
+	if ((err = fopen_s(&fp, "shuduku.txt", "w")) != 0) {    /* 打开文件 */
 		printf("File open error!\n");  
 		exit(0);
 	}
@@ -115,16 +115,19 @@ int main(int argc, char* argv[])
 {
 	FILE *fp;
 	errno_t err;
-	if ((err = fopen_s(&fp,"shuduku.txt", "w")) == NULL) {    /* 打开文件 */
+	if ((err = fopen_s(&fp,"shuduku.txt", "w")) != 0) {    /* 打开文件 */
 		printf("File open error!\n");
 		exit(0);
 	}
-	if (strcmp(argv[1], "-c") == 1)
+	else
+		printf("The file 'shuduku.txt' was opened\n");
+	if (strcmp(argv[1], "-c") == 0)
 	{
 		int cnt = 0;
 		int n = strlen(argv[2]);
-		for (; n >= 0; n--)cnt += (argv[2][n] - '48') * pow(10, n);
-		int shift[9] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+		for (int te = 0; te< n; te ++)cnt += (argv[2][te] - 48) * pow(10, n - te - 1);
+		printf("%d", cnt);
+		int shift[9] = { 0, 3, 6, 1, 4, 6, 2, 5, 8 };
 		char row[10] = "812345679";
 		for (int k = 0; k < 40320 && cnt; k++)
 		{
@@ -134,7 +137,7 @@ int main(int argc, char* argv[])
 				if (i)
 				{
 					next_permutation(shift + 3, shift + 6);
-					shift[6] = 6, shift[7] = 7, shift[8] = 8;
+					shift[6] = 2, shift[7] = 5, shift[8] = 8;
 				}
 				for (int j = 0; j < 6 && cnt; j++)
 				{
@@ -142,23 +145,25 @@ int main(int argc, char* argv[])
 					for (int r = 0; r < 9; r++)
 					{
 						for (int c = 0; c < 9; c++)
-							//cout << row[sudo[shift[r]][c] - 1] << ' ';
-							fprintf(fp, "%d  ", row[sudo[shift[r]][c] - 1]);
-						//cout << endl;
-						fprintf(fp, "\n");
+						{
+							//printf_s("%d  ", row[sudo[shift[r]][c] - 1]);
+							fprintf_s(fp, "%c  ", row[sudo[shift[r]][c] - 1]);
+						}
+						//printf_s("\n");
+						fprintf_s(fp, "\n");
 					}
 					cnt--;
-					//cout << endl;
-					fprintf(fp, "\n");
+					//printf_s("\n");
+					fprintf_s(fp, "\n");
 				}
 			}
 		}
 	}
-	if (strcmp(argv[1], "-s") == 1)
+	if (strcmp(argv[1], "-s") == 0)
 	{
 		FILE *fp;
 		errno_t err;
-		if ((err = fopen_s(&fp, argv[2], "w")) == NULL) {    /* 打开文件 */
+		if ((err = fopen_s(&fp, argv[2], "w")) != 0) {    /* 打开文件 */
 			printf("File open error!\n");
 			exit(0);
 		}
